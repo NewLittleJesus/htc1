@@ -2,7 +2,17 @@
 
 error_reporting(E_ALL);
 
-	require_once 'Figure.php';
+spl_autoload_register(function ($class)
+{
+
+    $path = __DIR__ . $class . '.php';
+
+    if (file_exists($path))
+    {
+        require_once $path;
+    }
+
+});
 
 /**
  * Class parallelogram вспомогающий класс для вычисления площади параллелограмма
@@ -13,10 +23,10 @@ error_reporting(E_ALL);
         /**
          * @var float вычисленные по точкам длины сторон параллелограмма
          */
-        private $vectorABcoordinateX;
-        private $vectorABcoordinateY;
-        private $vectorACcoordinateX;
-        private $vectorACcoordinateY;
+        private $vectorABCoordinateX;
+        private $vectorABCoordinateY;
+        private $vectorACCoordinateX;
+        private $vectorACCoordinateY;
 
 
         /**
@@ -29,22 +39,22 @@ error_reporting(E_ALL);
          * @param float $y3
          */
 
-	public function __construct (float $x1, float $y1, float $x2, float $y2, float $x3, float $y3)
-	{
-        $this->vectorABcoordinateX = $x2 - $x1;
-        $this->vectorABcoordinateY = $y2 - $y1;
-        $this->vectorACcoordinateX = $x3 - $x1;
-        $this->vectorACcoordinateY = $y3 - $y1;
+        public function __construct (float $x1, float $y1, float $x2, float $y2, float $x3, float $y3)
+        {
+            $this->vectorABCoordinateX = $x2 - $x1;
+            $this->vectorABCoordinateY = $y2 - $y1;
+            $this->vectorACCoordinateX = $x3 - $x1;
+            $this->vectorACCoordinateY = $y3 - $y1;
 
-	}
-	public function vectorMultiplication(): float
-		{
-			return ($this->vectorABcoordinateX *  $this->vectorACcoordinateY)
-                -($this->vectorACcoordinateX * $this->vectorABcoordinateY);
-		}
+        }
+        public function vectorMultiplication(): float
+        {
+            return ($this->vectorABCoordinateX *  $this->vectorACCoordinateY)
+                -($this->vectorACCoordinateX * $this->vectorABCoordinateY);
+        }
         public function calculateArea()
         {
-	        return sqrt($this->vectorMultiplication()*$this->vectorMultiplication());
+            return sqrt($this->vectorMultiplication()*$this->vectorMultiplication());
         }
 
 }

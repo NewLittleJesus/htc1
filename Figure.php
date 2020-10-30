@@ -7,15 +7,15 @@ echo $type;
 
 class Figure
 {
-	protected $type = "";
-	
-	
-	public function getSquare() {}
-	public function getType()
-	{
-		return $this->type;
+    protected $type = "";
 
-	}
+
+    public function getSquare() {}
+    public function getType()
+    {
+        return $this->type;
+
+    }
 	
 }
 ?>

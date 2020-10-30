@@ -1,7 +1,17 @@
 <?php
 
 error_reporting(E_ALL);
-	require_once 'Figure.php';
+spl_autoload_register(function ($class)
+{
+
+    $path = __DIR__ . $class . '.php';
+
+    if (file_exists($path))
+    {
+        require_once $path;
+    }
+
+});
 
 /**
  * Class triangle вспомогательный класс для вычисления площади треугольника
@@ -13,9 +23,9 @@ error_reporting(E_ALL);
          * @var float вычисленные по точкам длины сторон треугольника
          */
 
-	    private $sideABlenght;
-	    private $sideBClenght;
-	    private $sideAClenght;
+	    private $sideABLenght;
+	    private $sideBCLenght;
+	    private $sideACLenght;
 
         /**
          * triangle constructor.
@@ -27,34 +37,34 @@ error_reporting(E_ALL);
          * @param float $y3 позиция точки С по оси Y
          */
 
-	public function __construct (float $x1, float $y1,float $x2, float $y2, float $x3, float $y3)
-	{
-		$this->sideABlenght = sqrt(($x2 - $x1)*($x2 - $x1)
-            + ($y2 - $y1)*($y2 - $y1));
-		$this->sideBClenght = sqrt(($x3 - $x2)*($x3 - $x2)
-            + ($y3 - $y2)*($y3 - $y2));
-		$this->sideAClenght = sqrt(($x1 - $x3)*($x1 - $x3)
-            + ($y1 - $y3)*($y1 - $y3));
-	}
+        public function __construct (float $x1, float $y1,float $x2, float $y2, float $x3, float $y3)
+        {
+            $this->sideABLenght = sqrt(($x2 - $x1)*($x2 - $x1)
+                + ($y2 - $y1)*($y2 - $y1));
+            $this->sideBCLenght = sqrt(($x3 - $x2)*($x3 - $x2)
+                + ($y3 - $y2)*($y3 - $y2));
+            $this->sideACLenght = sqrt(($x1 - $x3)*($x1 - $x3)
+                + ($y1 - $y3)*($y1 - $y3));
+        }
 
         /**
          * @return float вычисление полупериметра треугольника
          */
 
-	public function calculateHalfPerimeter(): float
-		{
-		    return ($this->sideABlenght + $this->sideBClenght + $this->sideAClenght)/2;
-		}
+        public function calculateHalfPerimeter(): float
+        {
+            return ($this->sideABLenght + $this->sideBCLenght + $this->sideACLenght)/2;
+        }
 
         /***
          * @return float вычисляет площадь
          */
 
-	public function calculateArea()
-		{
-			return sqrt($this->calculateHalfPerimeter()*($this->calculateHalfPerimeter() - $this->sideABlenght)*
-                ($this->calculateHalfPerimeter() - $this->sideBClenght)*($this->calculateHalfPerimeter() - $this->sideAClenght));
-		}
+        public function calculateArea()
+        {
+            return sqrt($this->calculateHalfPerimeter()*($this->calculateHalfPerimeter() - $this->sideABLenght)*
+                ($this->calculateHalfPerimeter() - $this->sideBCLenght)*($this->calculateHalfPerimeter() - $this->sideACLenght));
+        }
 }
 $triangle = new Triangle(
     $_POST['AonX'],

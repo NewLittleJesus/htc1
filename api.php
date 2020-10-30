@@ -2,9 +2,17 @@
 
 error_reporting(E_ALL);
 
-require_once 'Circle.php';
-require_once 'Triangle.php';
-require_once 'Parallelogram.php';
+spl_autoload_register(function ($class)
+{
+
+    $path = __DIR__ . $class . '.php';
+
+    if (file_exists($path))
+    {
+        require_once $path;
+    }
+
+});
 
 switch ($type) {
     case 'Круг' :

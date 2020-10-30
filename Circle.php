@@ -2,7 +2,17 @@
 
 error_reporting(E_ALL);
 
-require_once 'Figure.php';
+spl_autoload_register(function ($class)
+{
+
+    $path = __DIR__ . $class . '.php';
+
+    if (file_exists($path))
+    {
+        require_once $path;
+    }
+
+});
 
 /**
  * Class circle Вспомогательный класс для вычисления площади круга
@@ -24,20 +34,20 @@ class Circle extends Figure
      * @param float $x2 позиция точки 3
      * @param float $y2 позиция точки 4
      */
-	public function __construct ($x1, $y1, $x2, $y2)
-	{
-		$this->radiusLength = sqrt(($x2 - $x1)**2 + ($y2 - $y1)**2);
+    public function __construct ($x1, $y1, $x2, $y2)
+    {
+        $this->radiusLength = sqrt(($x2 - $x1)**2 + ($y2 - $y1)**2);
 
-	}
+    }
 
     /**
      * Вычисляет площадь
      * @return float|int
      */
-	public function calculateArea()
-	{
-		return M_PI*($this->radiusLength*$this->radiusLength);
-	}
+    public function calculateArea()
+    {
+        return M_PI*($this->radiusLength*$this->radiusLength);
+    }
 }
 
 $circle = new circle(
@@ -50,6 +60,7 @@ $circleArea = $circle->calculateArea();
 echo $circleArea;
 ?>
 
+<!DOCTYPE html>
 <html>
 <body>
 <form name = "DataBaseSend" action = "api.php" method="post" accept-charset="utf-8">
